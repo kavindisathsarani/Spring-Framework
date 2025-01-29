@@ -11,11 +11,12 @@
         <option value="$PROJECT_DIR$/S05_Configuration/pom.xml" />
         <option value="$PROJECT_DIR$/S06_Runtime_Value_Injection/pom.xml" />
         <option value="$PROJECT_DIR$/S07_Spring_Environment/pom.xml" />
+        <option value="$PROJECT_DIR$/S08_Spring_Web_MVC/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
