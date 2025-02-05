@@ -10,6 +10,7 @@
         <module name="S02_Spring_Bean_Life_Cycle" />
         <module name="S06_Runtime_Value_Injection" />
         <module name="S07_Spring_Environment" />
+        <module name="S09_RestContoller" />
         <module name="S05_Configuration" />
         <module name="S01_Spring_Core" />
         <module name="S04_FullMode_Vs_LightMode" />
