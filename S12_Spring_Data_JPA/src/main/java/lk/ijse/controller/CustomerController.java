@@ -1,18 +1,13 @@
-package lk.ijse.contoller;
+package lk.ijse.controller;
 
 import lk.ijse.dto.CustomerDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/customer")
 
-@CrossOrigin
-//To solve the CORS issue this annotation is used
-//@CrossOrigin("http//localhost:63342") this means only one origin allows
 public class CustomerController {
     ArrayList<CustomerDTO> customerDTOArrayList=new ArrayList<>();
 
