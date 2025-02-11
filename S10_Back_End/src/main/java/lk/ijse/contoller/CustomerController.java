@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/customer")
+@CrossOrigin
 public class CustomerController {
     ArrayList<CustomerDTO> customerDTOArrayList=new ArrayList<>();
 
