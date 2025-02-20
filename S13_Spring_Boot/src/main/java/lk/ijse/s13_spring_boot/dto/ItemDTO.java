@@ -1,5 +1,7 @@
 package lk.ijse.s13_spring_boot.dto;
 
+import jakarta.persistence.OneToMany;
+
 public class ItemDTO {
     private int id;
     private String name;
