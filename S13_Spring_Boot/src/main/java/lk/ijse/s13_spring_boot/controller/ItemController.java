@@ -19,11 +19,10 @@ public class ItemController {
     public ResponseUtil getCustomer(@RequestBody ItemDTO itemDTO) {
         /*boolean res=itemService.save(itemDTO);
         return res;*/
-        boolean res=itemService.save(itemDTO);
-        if (res) {
-            return new ResponseUtil(201,"Item is saved",null);
-        }
-        return new ResponseUtil(409,"Item already exists",null);
+       itemService.save(itemDTO);
+       return new ResponseUtil(201,"Item is saved",null);
+
+
     }
 
     @GetMapping(path = "getAll")
@@ -43,11 +42,10 @@ public class ItemController {
     @PutMapping(path = "update")
     public ResponseUtil update(@RequestBody ItemDTO itemDTO){
 //        return itemService.update(itemDTO);
-        boolean res= itemService.update(itemDTO);
-        if (res){
-            return new ResponseUtil(200,"item is updated",null);
-        }
-        return new ResponseUtil(404,"item not found",null);
+         itemService.update(itemDTO);
+         return new ResponseUtil(200,"item is updated",null);
+
+
 
     }
 

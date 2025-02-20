@@ -20,13 +20,13 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ModelMapper modelMapper;
     @Override
-    public boolean save(ItemDTO itemDTO){
+    public void save(ItemDTO itemDTO){
 //        Item item=new Item(itemDTO.getId(),itemDTO.getName(),itemDTO.getPrice(),itemDTO.getQuantity());
         if (itemRepo.existsById(itemDTO.getId())) {
-            return false;
+            throw new RuntimeException("Item already exists");
         }
         itemRepo.save(modelMapper.map(itemDTO,Item.class));
-        return true;
+
     }
     @Override
     public ArrayList<ItemDTO> getAll() {
@@ -47,12 +47,17 @@ public class ItemServiceImpl implements ItemService {
         return modelMapper.map(itemRepo.findAll(),new TypeToken<List<ItemDTO>>(){}.getType());
     }
     @Override
-    public int delete(int id){
-        itemRepo.deleteById(id);
-        return id;
+    public void delete(int id){
+        if ( itemRepo.existsById(id)) {
+            itemRepo.deleteById(id);
+        }
+
+        throw new RuntimeException("item doesn't exist");
+//        itemRepo.deleteById(id);
+//        return id;
     }
     @Override
-    public boolean update(ItemDTO itemDTO){
+    public void update(ItemDTO itemDTO){
         if(itemRepo.existsById(itemDTO.getId())){
            /* Item item=new Item(
                     itemDTO.getId(),
@@ -61,9 +66,9 @@ public class ItemServiceImpl implements ItemService {
                     itemDTO.getQuantity()
             );*/
             itemRepo.save(modelMapper.map(itemDTO,Item.class));
-            return true;
+
         }
-        return false;
+        throw new RuntimeException("item doesn't exist");
     }
 
 }

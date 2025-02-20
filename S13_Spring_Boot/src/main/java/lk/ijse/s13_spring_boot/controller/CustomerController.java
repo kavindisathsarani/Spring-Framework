@@ -11,23 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/customer")
+@RequestMapping(value = "api/v1/customer")
 @CrossOrigin
 
 public class CustomerController {
     @Autowired
     private CustomerServiceImpl customerService;
+
     @PostMapping(path = "save")
     public ResponseUtil getCustomer(@RequestBody CustomerDTO customerDTO) {
-        boolean res=customerService.save(customerDTO);
-        if (res) {
-            return new ResponseUtil(201,"customer is saved",null);
-        }
-        return new ResponseUtil(409,"customer is already exist",null);
+        customerService.save(customerDTO);
+        return new ResponseUtil(201, "customer is saved", null);
     }
 
     @GetMapping(path = "getAll")
-    public /*List<CustomerDTO>*/ ResponseUtil getAll(){
+    public /*List<CustomerDTO>*/ ResponseUtil getAll() {
         return new ResponseUtil(
                 200,
                 "success",
@@ -35,18 +33,17 @@ public class CustomerController {
 //         return customerService.getAll();
 
     }
+
     @DeleteMapping(path = "delete/{id}")
-    public ResponseUtil deleteCustomer(@PathVariable(value = "id") int id){
+    public ResponseUtil deleteCustomer(@PathVariable(value = "id") int id) {
         customerService.delete(id);
-        return new ResponseUtil(200,"Customer is deleted",null);
+        return new ResponseUtil(200, "Customer is deleted", null);
     }
+
     @PutMapping(path = "update")
-    public ResponseUtil update(@RequestBody CustomerDTO customerDTO){
-        boolean res= customerService.update(customerDTO);
-        if (res){
-            return new ResponseUtil(200,"Customer is updated",null);
-        }
-        return new ResponseUtil(404,"Customer not found",null);
+    public ResponseUtil update(@RequestBody CustomerDTO customerDTO) {
+        customerService.update(customerDTO);
+        return new ResponseUtil(200, "Customer is updated", null);
 
     }
 

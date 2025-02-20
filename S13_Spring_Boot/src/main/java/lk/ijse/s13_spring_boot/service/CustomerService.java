@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CustomerService {
-    boolean save(CustomerDTO customerDTO);
+    void save(CustomerDTO customerDTO);
     List<CustomerDTO> getAll();
-    int delete(int id);
+    void delete(int id);
 
-    boolean update(CustomerDTO customerDTO);
+    void update(CustomerDTO customerDTO);
 }
