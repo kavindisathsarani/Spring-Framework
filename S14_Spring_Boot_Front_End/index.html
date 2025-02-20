@@ -254,7 +254,7 @@
       success:(res) =>{
         console.log(res)
         $('#customer_table_body').empty()
-        res.forEach(customer => {
+        res.data.forEach(customer => {
           $('#customer_table_body').append(`
                  <tr>
                     <td>${customer.id}</td>

@@ -1,9 +1,8 @@
 package lk.ijse.s13_spring_boot.controller;
 
-import lk.ijse.s13_spring_boot.dto.CustomerDTO;
 import lk.ijse.s13_spring_boot.dto.ItemDTO;
-import lk.ijse.s13_spring_boot.service.CustomerService;
-import lk.ijse.s13_spring_boot.service.ItemService;
+import lk.ijse.s13_spring_boot.service.Impl.ItemServiceImpl;
+import lk.ijse.s13_spring_boot.utill.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,25 +14,40 @@ import java.util.ArrayList;
 
 public class ItemController {
     @Autowired
-    private ItemService itemService;
+    private ItemServiceImpl itemService;
     @PostMapping(path = "save")
-    public boolean getCustomer(@RequestBody ItemDTO itemDTO) {
+    public ResponseUtil getCustomer(@RequestBody ItemDTO itemDTO) {
+        /*boolean res=itemService.save(itemDTO);
+        return res;*/
         boolean res=itemService.save(itemDTO);
-        return res;
+        if (res) {
+            return new ResponseUtil(201,"Item is saved",null);
+        }
+        return new ResponseUtil(409,"Item already exists",null);
     }
 
     @GetMapping(path = "getAll")
-    public ArrayList<ItemDTO> getAll(){
-        return itemService.getAll();
-
+    public /*ArrayList<ItemDTO>*/ ResponseUtil getAll(){
+//        return itemService.getAll();
+        return new ResponseUtil(
+                200,
+                "success",
+                itemService.getAll());
     }
     @DeleteMapping(path = "delete/{id}")
-    public int deleteCustomer(@PathVariable(value = "id") int id){
-        return itemService.delete(id);
+    public ResponseUtil deleteCustomer(@PathVariable(value = "id") int id){
+//        return itemService.delete(id);
+        itemService.delete(id);
+        return new ResponseUtil(200,"Customer is deleted",null);
     }
     @PutMapping(path = "update")
-    public boolean update(@RequestBody ItemDTO itemDTO){
-        return itemService.update(itemDTO);
+    public ResponseUtil update(@RequestBody ItemDTO itemDTO){
+//        return itemService.update(itemDTO);
+        boolean res= itemService.update(itemDTO);
+        if (res){
+            return new ResponseUtil(200,"item is updated",null);
+        }
+        return new ResponseUtil(404,"item not found",null);
 
     }
 

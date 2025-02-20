@@ -1,8 +1,10 @@
 package lk.ijse.s13_spring_boot.controller;
 
 import lk.ijse.s13_spring_boot.dto.CustomerDTO;
-import lk.ijse.s13_spring_boot.service.CustomerService;
+import lk.ijse.s13_spring_boot.service.Impl.CustomerServiceImpl;
+import lk.ijse.s13_spring_boot.utill.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,25 +16,37 @@ import java.util.List;
 
 public class CustomerController {
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerService;
     @PostMapping(path = "save")
-    public boolean getCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseUtil getCustomer(@RequestBody CustomerDTO customerDTO) {
         boolean res=customerService.save(customerDTO);
-        return res;
+        if (res) {
+            return new ResponseUtil(201,"customer is saved",null);
+        }
+        return new ResponseUtil(409,"customer is already exist",null);
     }
 
     @GetMapping(path = "getAll")
-    public ArrayList<CustomerDTO> getAll(){
-        return customerService.getAll();
+    public /*List<CustomerDTO>*/ ResponseUtil getAll(){
+        return new ResponseUtil(
+                200,
+                "success",
+                customerService.getAll());
+//         return customerService.getAll();
 
     }
     @DeleteMapping(path = "delete/{id}")
-    public int deleteCustomer(@PathVariable(value = "id") int id){
-        return customerService.delete(id);
+    public ResponseUtil deleteCustomer(@PathVariable(value = "id") int id){
+        customerService.delete(id);
+        return new ResponseUtil(200,"Customer is deleted",null);
     }
     @PutMapping(path = "update")
-    public boolean update(@RequestBody CustomerDTO customerDTO){
-        return customerService.update(customerDTO);
+    public ResponseUtil update(@RequestBody CustomerDTO customerDTO){
+        boolean res= customerService.update(customerDTO);
+        if (res){
+            return new ResponseUtil(200,"Customer is updated",null);
+        }
+        return new ResponseUtil(404,"Customer not found",null);
 
     }
 

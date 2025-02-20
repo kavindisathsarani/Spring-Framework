@@ -328,7 +328,7 @@
       success: (res) => {
         console.log(res)
         $('#item_table_body').empty()
-        res.forEach(item => {
+        res.data.forEach(item => {
           $('#item_table_body').append(`
             <tr>
               <td>${item.id}</td>
