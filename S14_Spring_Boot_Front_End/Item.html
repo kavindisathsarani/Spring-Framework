@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Item Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff; /* Light Alice Blue background */
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #4682b4; /* Steel Blue */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: 1px solid #add8e6; /* Light Blue */
+    }
+
+    button {
+      font-size: 1rem;
+    }
+
+    .box-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .box-label {
+      width: 30%;
+    }
+
+    .form-label {
+      font-weight: bold;
+      color: #4682b4; /* Steel Blue */
+    }
+
+    .form-control {
+      width: 70%;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid #add8e6; /* Light Blue border */
+      background-color: #f0f8ff; /* Alice Blue */
+      color: #333;
+    }
+
+    .form-control:focus {
+      border-color: #6495ed; /* Cornflower Blue on focus */
+      box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+    }
+
+    .table {
+      width: 100%;
+      margin-top: 2rem;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #add8e6; /* Light Blue */
+    }
+
+    .table th {
+      background-color: #4682b4; /* Steel Blue */
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .table td {
+      background-color: #f9f9f9;
+    }
+
+    .table td:hover {
+      background-color: #f0f8ff; /* Alice Blue on hover */
+    }
+
+    .btn {
+      font-size: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: #6495ed; /* Cornflower Blue */
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #4169e1; /* Royal Blue */
+    }
+
+    .btn-secondary {
+      background-color: #b0c4de; /* Light Steel Blue */
+      color: white;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5f9ea0; /* Cadet Blue */
+    }
+
+    .btn-light {
+      background-color: #f8f9fa; /* Light gray */
+      border: 1px solid #ddd;
+    }
+
+    .btn-light:hover {
+      background-color: #e2e6ea; /* Light gray on hover */
+    }
+
+    .modal-dialog {
+      max-width: 600px;
+    }
+
+    .modal-content {
+      padding: 20px;
+      border-radius: 0.5rem;
+      background-color: #fafafa;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header h2 {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #4682b4;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #addBtn {
+      background-color: #87cefa; /* Light Sky Blue */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 0.5rem;
+    }
+
+    #addBtn:hover {
+      background-color: #00bfff; /* Deep Sky Blue */
+    }
+
+    #btn_save_item,
+    #btn_update_item {
+      /*width: 100%;*/
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: none;
+    }
+
+    #btn_save_item {
+      background-color: #4682b4; /* Steel Blue */
+      color: white;
+    }
+
+    #btn_save_item:hover {
+      background-color: #4169e1; /* Royal Blue */
+    }
+
+    #btn_update_item {
+      background-color: #87cefa; /* Light Sky Blue */
+      color: white;
+    }
+
+    #btn_update_item:hover {
+      background-color: #00bfff; /* Deep Sky Blue */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .box-container {
+        flex-direction: column;
+      }
+
+      .box-label {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control {
+        width: 100%;
+      }
+
+      .table th, .table td {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+
+
+  </style>
+
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Item Manage</h1>
+  <hr/>
+
+  <button id="addBtn" type="button" class="btn mb-3 text-right" data-bs-toggle="modal" data-bs-target="#itemModal">
+    Add Item
+  </button>
+
+  <!-- Add Item Modal -->
+  <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container m-2">
+          <form>
+            <h2>ADD ITEM</h2>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="id" class="form-label">ID</label>
+              </div>
+              <input type="text" class="form-control" id="id">
+            </div>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="name" class="form-label">Name</label>
+              </div>
+              <input type="text" class="form-control" id="name">
+            </div>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="price" class="form-label">Price</label>
+              </div>
+              <input type="number" class="form-control" id="price">
+            </div>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="quantity" class="form-label">Quantity</label>
+              </div>
+              <input type="number" class="form-control" id="quantity">
+            </div>
+
+            <button id="btn_save_item" type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Item Modal -->
+  <div class="modal fade" id="updateItemModal" tabindex="-1" aria-labelledby="updateItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container m-2">
+          <form>
+            <h2>UPDATE ITEM</h2>
+            <div class="mb-3 box-container">
+              <div class="box-label">
+                <label for="updated_item_id" class="form-label">ID</label>
+              </div>
+              <input type="text" class="form-control" id="updated_item_id" readonly>
+            </div>
+            <div class="mb-3 box-container">
+              <div class="box-label">
+                <label for="updated_name" class="form-label">Name</label>
+              </div>
+              <input type="text" class="form-control" id="updated_name">
+            </div>
+            <div class="mb-3 box-container">
+              <div class="box-label">
+                <label for="updated_price" class="form-label">Price</label>
+              </div>
+              <input type="number" class="form-control" id="updated_price">
+            </div>
+            <div class="mb-3 box-container">
+              <div class="box-label">
+                <label for="updated_quantity" class="form-label">Quantity</label>
+              </div>
+              <input type="number" class="form-control" id="updated_quantity">
+            </div>
+
+            <button id="btn_update_item" type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Price</td>
+      <td>Quantity</td>
+      <td>Update</td>
+      <td>Delete</td>
+    </tr>
+    </thead>
+    <tbody id="item_table_body">
+    </tbody>
+  </table>
+</div>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const getAllItems = () => {
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/item/getAll',
+      type: "GET",
+      success: (res) => {
+        console.log(res)
+        $('#item_table_body').empty()
+        res.forEach(item => {
+          $('#item_table_body').append(`
+            <tr>
+              <td>${item.id}</td>
+              <td>${item.name}</td>
+              <td>${item.price}</td>
+              <td>${item.quantity}</td>
+              <td>
+                <button class="btn btn-light btn-sm" onclick="editItem('${item.id}', '${item.name}', '${item.price}', '${item.quantity}')">
+                  Update
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-light btn-sm" onclick="deleteItem('${item.id}')">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          `)
+        })
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  $(document).ready(function () {
+    getAllItems();
+  })
+
+  $('#btn_save_item').click((e) => {
+    e.preventDefault();
+    const itemId = $("#id").val();
+    const itemName = $('#name').val();
+    const itemPrice = $('#price').val();
+    const itemQuantity = $('#quantity').val();
+
+    const itemData = {
+      id: itemId,
+      name: itemName,
+      price: itemPrice,
+      quantity: itemQuantity
+    };
+
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/item/save',
+      type: "POST",
+      data: JSON.stringify(itemData),
+      contentType: "application/json",
+      success: (res) => {
+        getAllItems();
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+
+  const deleteItem = (id) => {
+    $.ajax({
+      url: `http://localhost:8080/api/v1/item/delete/${id}`,
+      type: 'DELETE',
+      success: (res) => {
+        console.log(res);
+        getAllItems();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  const editItem = (id, name, price, quantity) => {
+    $('#updated_item_id').val(id);
+    $('#updated_name').val(name);
+    $('#updated_price').val(price);
+    $('#updated_quantity').val(quantity);
+    $('#updateItemModal').modal('show');
+  }
+
+  $('#btn_update_item').click((e) => {
+    e.preventDefault();
+    const id = $('#updated_item_id').val();
+    const name = $('#updated_name').val();
+    const price = $('#updated_price').val();
+    const quantity = $('#updated_quantity').val();
+
+    const updateItemData = {
+      id,
+      name,
+      price,
+      quantity
+    };
+
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/item/update',
+      type: 'PUT',
+      data: JSON.stringify(updateItemData),
+      contentType: "application/json",
+      success: (res) => {
+        getAllItems();
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  })
+</script>
+
+
+</body>
+</html>
