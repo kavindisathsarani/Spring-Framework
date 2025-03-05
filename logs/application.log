@@ -38,3 +38,5 @@
 2025-03-05T11:52:22.672+05:30  INFO 14164 --- [S17_Spring_Boot_Loggins] [http-nio-8080-exec-5] l.i.s.controller.DemoController          : Info Message
 2025-03-05T11:52:22.672+05:30  WARN 14164 --- [S17_Spring_Boot_Loggins] [http-nio-8080-exec-5] l.i.s.controller.DemoController          : Warn Message
 2025-03-05T11:52:22.672+05:30 ERROR 14164 --- [S17_Spring_Boot_Loggins] [http-nio-8080-exec-5] l.i.s.controller.DemoController          : Error Message
+2025-03-05T12:09:36.213+05:30  INFO 14164 --- [S17_Spring_Boot_Loggins] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-05T12:09:36.470+05:30  INFO 14164 --- [S17_Spring_Boot_Loggins] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
