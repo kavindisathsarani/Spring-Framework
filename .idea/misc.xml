@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/S12_Spring_Data_JPA/pom.xml" />
         <option value="$PROJECT_DIR$/S13_Spring_Boot/pom.xml" />
         <option value="$PROJECT_DIR$/S15_Spring_Security/pom.xml" />
+        <option value="$PROJECT_DIR$/S16_Spring_Boot_Bean_Validation/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
