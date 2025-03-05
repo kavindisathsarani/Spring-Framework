@@ -10,6 +10,7 @@
         <module name="S10_Back_End" />
         <module name="S01_Spring_Core" />
         <module name="S16_Spring_Boot_Bean_Validation" />
+        <module name="S17_Spring_Boot_Loggins" />
         <module name="S08_Spring_Web_MVC" />
         <module name="S03_Spring_DI" />
         <module name="S15_Spring_Security" />
@@ -37,6 +38,7 @@
       <module name="S13_Spring_Boot" options="-parameters" />
       <module name="S15_Spring_Security" options="-parameters" />
       <module name="S16_Spring_Boot_Bean_Validation" options="-parameters" />
+      <module name="S17_Spring_Boot_Loggins" options="-parameters" />
     </option>
   </component>
 </project>
